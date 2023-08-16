@@ -1,0 +1,78 @@
+<%- include("../partials/header")%>
+<%- include("../partials/navbar")%>
+
+
+
+<style>
+
+    body{
+        background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwoHBwcHBwoQBgcHBxYHBwcHDg8ICQYKFREiIiARExMYHCggGBolJx8TITEhJSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDg0NFSsZFRkrKysrKys3NysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAM0A9gMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAACAAEH/8QAFRABAQAAAAAAAAAAAAAAAAAAABH/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAgEFA//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwDqFVGqvOOOVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVaFRAaqNVXFFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFUNRAUFVXFQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FVIQ0FRCDVRqq4oqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqhqIDVRqq40qqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqqNVIFVRqpAqhrCA1UaquKKqjVSBVUaqQKqjVSBVUaqQKqjVSBVUaqQKqjVSBVUaqQKqjVSBVUaqQKqjVSBVUaqQKqjVSBVUaqQKtCogNVGqqiiqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqGogNVCqriodVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdVCqkIdQVEINVGqrjSqo1UgVVGqtgVVGqsgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1VsCqo1VkCqo1UgVVGqkCqo1UgVVGqkCrGVNgNVCqqijqoVUgdVCqkDqoVUgdVCqkDqoVUgdVCqkDqoVUgdVCqkDqoVUgdVCqkDqoVUgdVCqkDqoVUgdVCqkDqCogNVGqrioVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVVGqkIVQ1EINVGqriiqo1UjCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVVGqkCqo1UgVQ1hAaqKXFFVRRAqqKIFVRRAqqKIFVRRAqqKIFVRRAqqKIFVRRAqqKIFVRRAqqKIFVRRAqqKIFWgiD/9k=);
+        background-size: cover;
+    }
+
+
+</style>
+<div class="container" style="margin-top: 5rem;">
+
+  <%- include("../partials/flash")%>
+
+  <h6 class="display-6">My Wallet</h6>
+  <p><b>Current Balance : Rs 1000</b></p>
+  <div class="row">
+  <div class="col-lg-8">
+
+  <%for(let item of userCart){%>
+        <div class="card mb-3" style="width: 90%;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img style="width: 200px;" src="<%=item.img%>" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%=item.name%></h5>
+                <p class="card-text">This item is in your Cart.</p>
+                
+                <!-- <form action="/user/<%=currentUser._id%>/wallet/<%=item._id%>?_method=DELETE" method="post">
+                  <button class="btn btn-sm btn-danger">remove</button>
+                </form> -->
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      <%}%>
+
+      
+      </div>
+
+      <div class="col-lg-4 mb-3">
+        <%totalAmount=0%>
+        <h6 class="display-6">Products</h6>
+        <ul class="list-group">
+         
+          <%for(let item of userCart){%>
+            <li class="list-group-item"><%=item.name%> - <strong>&#8377; <%=item.price%></strong></li>
+            <%totalAmount+=item.price%>
+          <%}%>
+          
+        </ul>
+
+        <div class="mt-2">
+            <% if(totalAmount==0){%>
+            <p>No Product in Cart</p>
+            <%}%>
+            <p class="fw-bold">Total Amount Payable:  &#8377; <%=totalAmount%></p>
+            <% if(totalAmount>1000){%>
+          <p class="fw-bold">Total Amount to be added to wallet:  &#8377; <%=totalAmount-1000%></p>
+          <%}%>
+          <a href="/cart/payment" class="btn btn-success">Proceed To Add Money</a>
+        </div>
+       
+      </div>
+     
+    </div>
+
+</div>
+
+<%- include("../partials/footer")%>
